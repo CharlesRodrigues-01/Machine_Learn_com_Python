@@ -17,8 +17,24 @@ base['age'].mean()
 # calcula a média da coluna indicada
 
 base['age'][base.age > 0].mean()
-# calcula a média excluindo os valores errados
+# calcula a média excluindo os valores inconsistentes
 
 base.loc[base.age < 0, 'age'] = 40.92
-# substitui os dados incorretos pela a média calculada (40.92)
+# substitui os dados inconsistentes pela a média calculada (40.92)
 
+pd.isnull(base['age'])
+# mostra quando há valores nulos na coluna
+
+base.loc[pd.isnull(base['age'])]
+# encotra os valores nulos de determinada coluna
+
+previsores = base.iloc[:, 1:4].values
+# cria a variável "previsores" para as colunas "income, age e loan"
+
+classe = base.iloc[:, 4].values
+# cria a variável "classes" para a coluna "c#default"
+
+from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(missing_values='nan', strategy='mean')
+imputer = imputer.fit(previsores[:, 0:3])
+# substitui os dados nulos pela a média calculada das respectivas colunas
