@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+'''Sequência de códigos para tratamento de dados inconsistentes e
+padronização de dados com escalas diferentes'''
 
 import pandas as pd
 base = pd.read_csv('credit_data.csv')
@@ -34,7 +36,13 @@ previsores = base.iloc[:, 1:4].values
 classe = base.iloc[:, 4].values
 # cria a variável "classes" para a coluna "c#default"
 
+import numpy as np
 from sklearn.impute import SimpleImputer
-imputer = SimpleImputer(missing_values='nan', strategy='mean')
-imputer = imputer.fit(previsores[:, 0:3])
+imp_mean = SimpleImputer(missing_values=np.nan, strategy='mean')
+previsores = imp_mean.fit(previsores).transform(previsores)
 # substitui os dados nulos pela a média calculada das respectivas colunas
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+previsores = scaler.fit_transform(previsores)
+# implementa o modelo de Padronização dos dados para a mesma escala
