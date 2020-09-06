@@ -46,3 +46,7 @@ from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 previsores = scaler.fit_transform(previsores)
 # implementa o modelo de Padronização dos dados para a mesma escala
+
+from sklearn.model_selection import train_test_split
+previsores_treinamento, previsores_teste, classe_treinamento, classe_teste = train_test_split(previsores, classe, test_size=0.25, random_state=0)
+# cria as variáveis para teste e treinamento com respectivamente 25% e 75% dos dados
