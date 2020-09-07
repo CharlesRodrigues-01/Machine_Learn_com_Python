@@ -51,4 +51,23 @@ from sklearn.model_selection import train_test_split
 previsores_treinamento, previsores_teste, classe_treinamento, classe_teste = train_test_split(previsores, classe, test_size=0.25, random_state=0)
 # cria as variáveis para teste e treinamento com respectivamente 25% e 75% dos dados
 
+'''Sequência de códigos para aprendizagem bayesiana (Naives Bayes)'''
 
+from sklearn.naive_bayes import GaussianNB
+classificador = GaussianNB()
+classificador.fit(previsores_treinamento, classe_treinamento)
+# gera a tabela de probabilidade para aprendizado
+
+previsoes = classificador.predict(previsores_teste)
+''' gera a variável previsões que utiliza o aprendizado para prever, com base
+no treinamento, o resultado. Posteriormente é importante comparar esta variável com a 
+classe_teste para comparar a quantidade de acertos e erros.'''
+
+from sklearn.metrics import confusion_matrix, accuracy_score
+precisao = accuracy_score(classe_teste, previsoes)
+# compara os valores conhecidos (classe_teste) com os valores previstos pelo algoritmo (previsoes)
+
+matriz = confusion_matrix(classe_teste, previsoes)
+# cria a matriz de confusão dos valores conhecidos e previstos
+
+''' previsão de acerto deste algoritmo ficou em 94%.'''
