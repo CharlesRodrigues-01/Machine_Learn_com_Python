@@ -51,10 +51,10 @@ from sklearn.model_selection import train_test_split
 previsores_treinamento, previsores_teste, classe_treinamento, classe_teste = train_test_split(previsores, classe, test_size=0.25, random_state=0)
 # cria as variáveis para teste e treinamento com respectivamente 25% e 75% dos dados
 
-'''Sequência de códigos para aprendizagem por Regressão Logística'''
+'''Sequência de códigos para aprendizagem por SVM'''
 
-from sklearn.linear_model import LogisticRegression
-classificador = LogisticRegression(random_state=(1))
+from sklearn.svm import SVC
+classificador = SVC(kernel='rbf', random_state=1, C = 2.0)
 classificador.fit(previsores_treinamento, classe_treinamento)
 # gera o algoritmo para aprendizado
 
@@ -70,5 +70,8 @@ precisao = accuracy_score(classe_teste, previsoes)
 matriz = confusion_matrix(classe_teste, previsoes)
 # cria a matriz de confusão dos valores conhecidos e previstos
 
-''' previsão de acerto deste algoritmo ficou em 94,60%.'''
+''' previsão de acerto deste algoritmo ficou em 94,60% para o kernel linear, 96,80% 
+para kernel polinomial, 83,80% para o kernel sigmoid e 98,20 para o kernel RBF.
+Ao mudarmos o atributo custo, de default para 2.0, o acerto sobe para 98,80% 
+(atenção ao subir o custo!)'''
 
